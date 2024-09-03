@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PI7z4L4xW+0MoRx37rScElnVb9e7zIhts4rqzEwm9zBcYoagC21ilFsurYoMNMFtFKBkn5+eJk3KkmmD+BZgtw==",
+  "dgSpecHash": "90L04OtfDH8=",
   "success": true,
-  "projectFilePath": "D:\\Projetos\\CursoCsharpWebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
+  "projectFilePath": "D:\\Projetos\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jefferson\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\jefferson\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

@@ -2997,11 +2997,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\CursoCsharpWebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
+      "projectUniqueName": "D:\\Projetos\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
       "projectName": "SmartSchool.WebAPI",
-      "projectPath": "D:\\Projetos\\CursoCsharpWebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
+      "projectPath": "D:\\Projetos\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
       "packagesPath": "C:\\Users\\jefferson\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\CursoCsharpWebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\obj\\",
+      "outputPath": "D:\\Projetos\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\SmartSchool.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3029,6 +3029,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
