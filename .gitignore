@@ -1,0 +1,116 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+.vscode-test/
+
+# Local History for Visual Studio
+.localhistory/
+
+# NCrunch
+.ncrunch*
+*.ncrunch*
+NCrunchTemp_*.*
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# JetBrains Rider
+.idea/
+
+# Rider settings
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/**/storage_v2.xml
+.idea/**/workspace.xml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# StyleCop
+StyleCopReport.xml
+
+# Auto generated files (backup)
+*.bak
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotNet
+*.dotnet
+.dotnet
+
+# Coverage and Test Results
+coverage/
+TestResults/
+*.coverage
+*.coveragexml
+*.testloggerdata
+
+# NPM packages
+node_modules/
+
+# Yarn
+.yarn/
+.pnp.*
+.yarnrc.yml
+.yarnrc
+
+# Mac Files
+.DS_Store
+
+# Logs
+*.log
+
+# Visual Studio 2019/2022
+.vs/
+
+# Rider
+.idea/
+
+# Function Files
+local.settings.json
