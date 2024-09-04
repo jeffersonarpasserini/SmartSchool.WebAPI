@@ -4,10 +4,10 @@ using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Data;
 
-public class AppDBContext : DbContext
+public class AppDbContext : DbContext
 {
     //recebe a conexão do Startup
-    public AppDBContext(DbContextOptions<AppDBContext> options) : base(options){}
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
     
     public DbSet<Aluno> Alunos { get; set; }
     public DbSet<Professor> Professores { get; set; }

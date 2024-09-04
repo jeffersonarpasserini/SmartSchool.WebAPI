@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartSchool.WebAPI.Data;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers;
@@ -7,46 +8,23 @@ namespace SmartSchool.WebAPI.Controllers;
 [Route("api/[controller]")]
 public class AlunoController : Controller
 {
-    public List<Aluno> Alunos = new List<Aluno>()
+    private readonly AppDbContext _context;
+
+    public AlunoController(AppDbContext context)
     {
-        new Aluno()
-        {
-            Id = 1,
-            Nome = "Marcos",
-            Sobrenome = "Jose",
-            Telefone = "1111111"
-        },
-        new Aluno()
-        {
-            Id = 2,
-            Nome = "Joao",
-            Sobrenome = "Jose",
-            Telefone = "2222222"
-        },
-        new Aluno()
-        {
-            Id = 3,
-            Nome = "Mauro",
-            Sobrenome = "Jose",
-            Telefone = "3333333"
-        }
-    };
-        
-    public AlunoController()
-    {
-        
+        _context = context;
     }
     
     [HttpGet]
     public IActionResult Get()
     {
-        return Ok(Alunos);
+        return Ok(_context.Alunos);
     }
     
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        Aluno aluno = Alunos.FirstOrDefault(a => a.Id == id);
+        Aluno aluno = _context.Alunos.FirstOrDefault(a => a.Id == id);
 
         if (aluno == null) return BadRequest("Aluno nao encontrado");
         

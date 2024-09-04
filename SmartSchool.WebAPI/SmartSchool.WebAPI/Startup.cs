@@ -29,7 +29,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         //configuração do banco de dados
-        services.AddDbContext<AppDBContext>(
+        services.AddDbContext<AppDbContext>(
             context => context.UseSqlite(Configuration.GetConnectionString("SqLiteConn"))
             );
         

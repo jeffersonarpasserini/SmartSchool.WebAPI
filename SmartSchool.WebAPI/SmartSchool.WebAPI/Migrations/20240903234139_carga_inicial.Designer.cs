@@ -9,7 +9,7 @@ using SmartSchool.WebAPI.Data;
 
 namespace SmartSchool.WebAPI.Migrations
 {
-    [DbContext(typeof(AppDBContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20240903234139_carga_inicial")]
     partial class carga_inicial
     {
