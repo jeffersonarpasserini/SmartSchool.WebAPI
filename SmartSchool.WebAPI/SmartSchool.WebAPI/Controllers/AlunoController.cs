@@ -48,12 +48,10 @@ public class AlunoController : Controller
     {
         return Ok("Aluno apagado com sucesso");
     }
-    
+
     [HttpPatch]
     public IActionResult Patch(int id)
     {
         return Ok("Aluno alterado com sucesso");
     }
-    
-    
 }
