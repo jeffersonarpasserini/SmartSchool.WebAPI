@@ -78,9 +78,5 @@ public class AppDbContext : DbContext
                 new AlunoDisciplina() {AlunoId = 7, DisciplinaId = 4 },
                 new AlunoDisciplina() {AlunoId = 7, DisciplinaId = 5 }
             });
-        
-        
-
     }
-    
 }
