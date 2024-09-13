@@ -32,9 +32,6 @@ public class Startup
         services.AddDbContext<AppDbContext>(
             context => context.UseSqlite(Configuration.GetConnectionString("SqLiteConn"))
             );
-
-        services.AddScoped<IRepository, Repository>();
-        services.AddScoped<IAlunoRepository, AlunoRepository>();
         
         services.AddControllers().AddJsonOptions(options =>
         {
@@ -49,6 +46,11 @@ public class Startup
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
         */
+
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        
+        services.AddScoped<IRepository, Repository>();
+        services.AddScoped<IAlunoRepository, AlunoRepository>();
         
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
