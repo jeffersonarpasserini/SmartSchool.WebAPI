@@ -9,25 +9,35 @@ namespace SmartSchool.WebAPI.Controllers;
 [Route("api/[controller]")]
 public class AlunoController : Controller
 {
-    private readonly AppDbContext _context;
+    private readonly IAlunoRepository _repo;
 
-    public AlunoController(AppDbContext context)
+    public AlunoController(IAlunoRepository repo)
     {
-        _context = context;
+        this._repo = repo;
     }
     
     [HttpGet]
     public IActionResult Get()
     {
-        return Ok(_context.Alunos);
+        return Ok(_repo.Get<Aluno>());
     }
     
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        Aluno aluno = _context.Alunos.FirstOrDefault(a => a.Id == id);
+        Aluno aluno = _repo.GetById<Aluno>(id);
 
-        if (aluno == null) return BadRequest("Aluno nao encontrado");
+        if (aluno == null) return NotFound("Aluno nao encontrado");
+        
+        return Ok(aluno);
+    }
+    
+    [HttpGet("/api/GetAlunoById/{id}")]
+    public IActionResult GetAlunoById(int id)
+    {
+        Aluno aluno = _repo.GetAlunoById(id, true);
+
+        if (aluno == null) return NotFound("Aluno nao encontrado");
         
         return Ok(aluno);
     }
@@ -36,12 +46,12 @@ public class AlunoController : Controller
     public IActionResult Post(Aluno aluno)
     {
         try{
-            _context.Add(aluno);
-            _context.SaveChanges();
+            _repo.Add(aluno);
+            _repo.SaveChanges();
         }
         catch (Exception ex)
         {
-            return StatusCode(500, "Ocorreu um erro ao tentar remover o aluno.");
+            return StatusCode(500, "Ocorreu um erro ao tentar inserir um novo aluno.");
         }
         return Ok(aluno);
     }
@@ -49,21 +59,15 @@ public class AlunoController : Controller
     [HttpPut("{id}")]
     public IActionResult Put(int id, Aluno aluno)
     {
-        var existingEntity = _context.Alunos.Find(id);
-        if (existingEntity != null)
-        {
-            _context.Entry(existingEntity).State = EntityState.Detached;
-        } else BadRequest("Aluno não encontrado");
-
+        if(_repo.GetById<Aluno>(id) == null) return NotFound("Aluno não encontrado");
         try
         {
-            // Agora pode fazer a atualização
-            _context.Alunos.Update(aluno);
-            _context.SaveChanges();
+            _repo.Update(aluno);
+            _repo.SaveChanges();
         }
         catch (Exception ex)
         {
-            return StatusCode(500, "Ocorreu um erro ao tentar remover o aluno.");
+            return StatusCode(500, "Ocorreu um erro ao tentar atualizar o aluno.");
         }
         
         return Ok(aluno);
@@ -72,12 +76,12 @@ public class AlunoController : Controller
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        Aluno aluno = _context.Alunos.FirstOrDefault(a => a.Id == id);
-        if (aluno == null) return NotFound("Aluno não encontrado");
+        Aluno aluno = _repo.GetById<Aluno>(id);
+        if(aluno == null) return NotFound("Aluno não encontrado");
         try
         {
-            _context.Remove(aluno);
-            _context.SaveChanges();
+            _repo.Remove(aluno);
+            _repo.SaveChanges();
         }
         catch (Exception ex)
         {
@@ -90,17 +94,12 @@ public class AlunoController : Controller
     [HttpPatch("{id}")]
     public IActionResult Patch(int id, Aluno aluno)
     {
-        var existingEntity = _context.Alunos.Find(id);
-        if (existingEntity != null)
-        {
-            _context.Entry(existingEntity).State = EntityState.Detached;
-        } else BadRequest("Aluno não encontrado");
-
+        if(_repo.GetById<Aluno>(id) == null) return NotFound("Aluno não encontrado");
         try
         {
             // Agora pode fazer a atualização
-            _context.Alunos.Update(aluno);
-            _context.SaveChanges();
+            _repo.Update(aluno);
+            _repo.SaveChanges();
         }
         catch (Exception ex)
         {

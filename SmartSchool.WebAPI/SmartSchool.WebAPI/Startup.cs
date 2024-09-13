@@ -32,8 +32,24 @@ public class Startup
         services.AddDbContext<AppDbContext>(
             context => context.UseSqlite(Configuration.GetConnectionString("SqLiteConn"))
             );
+
+        services.AddScoped<IRepository, Repository>();
+        services.AddScoped<IAlunoRepository, AlunoRepository>();
         
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            options.JsonSerializerOptions.WriteIndented = true; // Opcional, apenas para melhor legibilidade
+        });
+        
+        /*
+         //exemplo de correção da serialização Json com NewtonSoft.
+        services.AddControllers()
+            .AddNewtonsoftJson(opt =>
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+        */
+        
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
