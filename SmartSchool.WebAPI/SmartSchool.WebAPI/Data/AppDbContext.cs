@@ -20,9 +20,6 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
-        //Aluno Entitiy
-        //AlunoBuilder.Build(modelBuilder);
 
         modelBuilder.Entity<AlunoDisciplina>().HasKey(AD => new {AD.AlunoId, AD.DisciplinaId});
         modelBuilder.Entity<AlunoCurso>().HasKey(AC => new { AC.AlunoId, AC.CursoId });
