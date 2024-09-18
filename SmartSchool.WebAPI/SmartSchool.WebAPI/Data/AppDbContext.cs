@@ -25,6 +25,7 @@ public class AppDbContext : DbContext
         //AlunoBuilder.Build(modelBuilder);
 
         modelBuilder.Entity<AlunoDisciplina>().HasKey(AD => new {AD.AlunoId, AD.DisciplinaId});
+        modelBuilder.Entity<AlunoCurso>().HasKey(AC => new { AC.AlunoId, AC.CursoId });
     
     
         modelBuilder.Entity<Professor>()
