@@ -1,21 +1,33 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace SmartSchool.WebAPI.Models;
 
+[Table("aluno")]
 public class Aluno
 {
+    [Column("id")]
     public int Id { get; set; }
+    [Column("matricula")]
     public int Matricula { get; set; }
+    [Column("cpf")]
     public string Cpf { get; set; }
-    
+    [Column("nome")]
     public string Nome { get; set; }
+    [Column("sobrenome")]
     public string Sobrenome { get; set; }
+    [Column("telefone")]
     public string Telefone { get; set; }
+    [Column("datanascimento")]
     public DateTime DataNascimento { get; set; }
+    [Column("datainicio")]
     public DateTime DataInicio { get; set; } = DateTime.Now;
+    [Column("datafim")]
     public DateTime? DataFim { get; set; } = null;
+    [Column("ativo")]
     public bool Ativo { get; set; } = true;
     public IEnumerable<AlunoDisciplina>? AlunosDisciplinas { get; set; }
+    public IEnumerable<AlunoCurso>? AlunosCursos { get; set; }
 
     public Aluno() { }
 

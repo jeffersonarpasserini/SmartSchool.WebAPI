@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SmartSchool.WebAPI.Data;
 using SmartSchool.WebAPI.Models;
+using SmartSchool.WebAPI.Services.Interfaces;
 
 namespace SmartSchool.WebAPI.Controllers;
 
@@ -9,45 +8,41 @@ namespace SmartSchool.WebAPI.Controllers;
 [Route("api/[controller]")]
 public class AlunoController : Controller
 {
-    private readonly IAlunoRepository _repo;
+    private readonly IAlunoService _alunoService;
 
-    public AlunoController(IAlunoRepository repo)
+    public AlunoController(IAlunoService alunoService)
     {
-        this._repo = repo;
+        this._alunoService = alunoService;
     }
     
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok(_repo.Get<Aluno>());
+        var alunos = await _alunoService.GetAll();
+        return Ok(alunos);
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        Aluno aluno = _repo.GetById<Aluno>(id);
-
-        if (aluno == null) return NotFound("Aluno nao encontrado");
-        
+        var aluno = await _alunoService.GetById(id);
+        if (aluno == null) return NotFound("Aluno não encontrado!");
         return Ok(aluno);
     }
     
     [HttpGet("/api/GetAlunoById/{id}")]
-    public IActionResult GetAlunoById(int id)
+    public async Task<IActionResult> GetAlunoById(int id)
     {
-        Aluno aluno = _repo.GetAlunoById(id, true);
-
-        if (aluno == null) return NotFound("Aluno nao encontrado");
-        
+        var aluno = await _alunoService.GetAlunoById(id, true);
+        if (aluno == null) return NotFound("Aluno não encontrado!");
         return Ok(aluno);
     }
 
     [HttpPost]
-    public IActionResult Post(Aluno aluno)
+    public async Task<IActionResult> Post(Aluno aluno)
     {
         try{
-            _repo.Add(aluno);
-            _repo.SaveChanges();
+            await _alunoService.Create(aluno);
         }
         catch (Exception ex)
         {
@@ -57,13 +52,11 @@ public class AlunoController : Controller
     }
     
     [HttpPut("{id}")]
-    public IActionResult Put(int id, Aluno aluno)
+    public async Task<IActionResult> Put(int id, Aluno aluno)
     {
-        if(_repo.GetById<Aluno>(id) == null) return NotFound("Aluno não encontrado");
         try
         {
-            _repo.Update(aluno);
-            _repo.SaveChanges();
+            await _alunoService.Update(aluno, id);
         }
         catch (Exception ex)
         {
@@ -74,14 +67,11 @@ public class AlunoController : Controller
     }
     
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        Aluno aluno = _repo.GetById<Aluno>(id);
-        if(aluno == null) return NotFound("Aluno não encontrado");
         try
         {
-            _repo.Remove(aluno);
-            _repo.SaveChanges();
+            await _alunoService.Remove(id);
         }
         catch (Exception ex)
         {
@@ -92,14 +82,11 @@ public class AlunoController : Controller
     }
 
     [HttpPatch("{id}")]
-    public IActionResult Patch(int id, Aluno aluno)
+    public async Task<IActionResult> Patch(int id, Aluno aluno)
     {
-        if(_repo.GetById<Aluno>(id) == null) return NotFound("Aluno não encontrado");
         try
         {
-            // Agora pode fazer a atualização
-            _repo.Update(aluno);
-            _repo.SaveChanges();
+            await _alunoService.Update(aluno, id);
         }
         catch (Exception ex)
         {

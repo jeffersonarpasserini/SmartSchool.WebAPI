@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using SmartSchool.WebAPI.Data;
+using SmartSchool.WebAPI.Services.Entities;
+using SmartSchool.WebAPI.Services.Interfaces;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace SmartSchool.WebAPI;
 
@@ -33,6 +37,40 @@ public class Startup
             context => context.UseSqlite(Configuration.GetConnectionString("SqLiteConn"))
             );
         
+        //configuração do swagger
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartSchool", Version = "v1" });
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = @"Enter 'Bearer' [space] your token",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        },
+                        Scheme = "oauth2",
+                        Name = "Bearer",
+                        In = ParameterLocation.Header
+                    },
+                    new List<string>()
+                }
+            });
+        });
+        
+        //adiciona controllers e trata a serialização Json
         services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
@@ -49,7 +87,11 @@ public class Startup
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         
-        services.AddScoped<IRepository, Repository>();
+        //Scoped services and interfaces services
+        services.AddScoped<IAlunoService, AlunoService>();
+        
+        
+        //Scoped Repositories and Interfaces repo
         services.AddScoped<IAlunoRepository, AlunoRepository>();
         
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -64,11 +106,28 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartSchool Web API V1");
+                // Adicione essas linhas para habilitar o botão "Authorize"
+                c.DocExpansion(DocExpansion.None);
+                c.DisplayRequestDuration();
+                c.EnableDeepLinking();
+                c.EnableFilter();
+                c.ShowExtensions();
+                c.EnableValidator();
+                c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Post, SubmitMethod.Put, SubmitMethod.Delete);
+                c.OAuthClientId("swagger-ui");
+                c.OAuthAppName("Swagger UI");
+            });
+        }
+        else
+        {
+            app.UseExceptionHandler("/home/Error");
+            app.UseHsts();
         }
 
         // app.UseHttpsRedirection();
-
         app.UseRouting();
 
         // app.UseAuthorization();

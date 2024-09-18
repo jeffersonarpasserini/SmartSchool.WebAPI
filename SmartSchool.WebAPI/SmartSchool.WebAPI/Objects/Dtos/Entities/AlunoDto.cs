@@ -6,7 +6,6 @@ public class AlunoDto
     public int Matricula { get; set; }
     public string Cpf { get; set; }
     public string Nome { get; set; }
-    public string Sobrenome { get; set; }
     public string Telefone { get; set; }
     public int idade { get; set; }
     public DateTime DataNascimento { get; set; }

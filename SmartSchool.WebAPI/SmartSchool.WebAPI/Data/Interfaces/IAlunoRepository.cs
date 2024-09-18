@@ -2,7 +2,7 @@
 
 namespace SmartSchool.WebAPI.Data;
 
-public interface IAlunoRepository : IRepository
+public interface IAlunoRepository : IGenericRepository<Aluno>
 {
     Aluno[] GetAll(bool includeDisciplina);
     Aluno GetAlunoById(int alunoId, bool includeDisciplina=false);

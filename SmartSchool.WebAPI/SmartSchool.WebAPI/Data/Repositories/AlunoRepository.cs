@@ -4,7 +4,7 @@ using SQLitePCL;
 
 namespace SmartSchool.WebAPI.Data;
 
-public class AlunoRepository : Repository, IAlunoRepository
+public class AlunoRepository : GenericRepository<Aluno>, IAlunoRepository
 {
     private readonly AppDbContext _context;
     
@@ -39,7 +39,9 @@ public class AlunoRepository : Repository, IAlunoRepository
         }
 
         query = query.AsNoTracking()
-            .OrderBy(a => a.Id).Where(aluno => aluno.Id == alunoId);
+            .Where(aluno => aluno.Id == alunoId)
+            .OrderBy(a => a.Id);
+       
 
         return query.FirstOrDefault();
     }
@@ -47,12 +49,19 @@ public class AlunoRepository : Repository, IAlunoRepository
     public Aluno[] GetAlunoByDisciplina(int disciplinaId)
     {
         IQueryable<Aluno> query = _context.Alunos;
+        
+        query = query.Include(a => a.AlunosDisciplinas)
+            .ThenInclude(ad => ad.Disciplina)
+            .AsNoTracking()
+            .Where(aluno => aluno.AlunosDisciplinas
+                .Any(ad => ad.DisciplinaId == disciplinaId));
+       /* 
         query = query.Include(a => a.AlunosDisciplinas)
                 .ThenInclude(ad => ad.Disciplina)
                 .ThenInclude(d => d.Professor)
                 .AsNoTracking()
                 .Where(aluno => aluno.AlunosDisciplinas.Any(ad =>ad.DisciplinaId == disciplinaId));
-        
+        */
         return query.ToArray();
     }
 }

@@ -1,14 +1,24 @@
-﻿namespace SmartSchool.WebAPI.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SmartSchool.WebAPI.Models;
 
 public class Professor
 {
+    [Column("id")]
     public int Id { get; set; }
+    [Column("nome")]
     public string Nome { get; set; }
+    [Column("sobrenome")]
     public string Sobrenome { get; set; }
+    [Column("matricula")]
     public int Matricula { get; set; }
+    [Column("cpf")]
     public string Cpf { get; set; }
+    [Column("datainicio")]
     public DateTime DataInicio { get; set; } = DateTime.Now;
+    [Column("datafim")]
     public DateTime? DataFim { get; set; } = null;
+    [Column("ativo")]
     public bool Ativo { get; set; } = true;
     public IEnumerable<Disciplina>? Disciplinas { get; set; }
 
