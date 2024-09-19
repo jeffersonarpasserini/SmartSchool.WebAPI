@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace SmartSchool.WebAPI.Models;
 
+[Table("alunocurso")]
 public class AlunoCurso
 {
     [ForeignKey("alunoid")]

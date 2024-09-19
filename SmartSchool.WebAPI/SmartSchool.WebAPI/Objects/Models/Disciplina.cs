@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SmartSchool.WebAPI.Models;
 
+[Table("disciplina")]
 public class Disciplina
 {
     [Column("id")]
@@ -15,22 +16,24 @@ public class Disciplina
     [Column("cargahoraria")]
     public int CargaHoraria { get; set; }
     
+    
     [Column("prerequisitoid")]
     public int? PrerequisitoId { get; set; }
     
-    [JsonIgnore] [ForeignKey("prerequisitoid")] 
+    [JsonIgnore][ForeignKey("PrerequisitoId")]
     public Disciplina Prerequisito { get; set; } = null;
     
     [Column("cursoid")]
     public int CursoId { get; set; }
     
-    [JsonIgnore] [ForeignKey("cursoid")] 
+    [JsonIgnore][ForeignKey("CursoId")] 
     public Curso Curso { get; set; }
     
+     
     [Column("professorid")]
     public int ProfessorId { get; set; }
     
-    [JsonIgnore] [ForeignKey("professorid")] 
+    [JsonIgnore][ForeignKey("ProfessorId")] 
     public Professor Professor { get; set; }
 
     public IEnumerable<AlunoDisciplina>? AlunosDisciplinas { get; set; }

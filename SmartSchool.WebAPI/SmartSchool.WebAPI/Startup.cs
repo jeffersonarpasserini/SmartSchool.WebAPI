@@ -32,10 +32,18 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        //configuração do banco de dados
-        services.AddDbContext<AppDbContext>(
-            context => context.UseSqlite(Configuration.GetConnectionString("SqLiteConn"))
-            );
+        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        
+        if (env == "Production")
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+        }
+        else
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+        }
         
         //configuração do swagger
         services.AddSwaggerGen(c =>

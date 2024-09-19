@@ -2,6 +2,7 @@
 
 namespace SmartSchool.WebAPI.Models;
 
+[Table("professor")]
 public class Professor
 {
     [Column("id")]

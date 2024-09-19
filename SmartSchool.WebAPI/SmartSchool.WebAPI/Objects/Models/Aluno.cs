@@ -40,6 +40,8 @@ public class Aluno
         Sobrenome = sobrenome;
         Telefone = telefone;
         DataNascimento = dataNascimento;
+        DataInicio = DateTime.Now;
+        DataFim = null;
     }
     
 }
