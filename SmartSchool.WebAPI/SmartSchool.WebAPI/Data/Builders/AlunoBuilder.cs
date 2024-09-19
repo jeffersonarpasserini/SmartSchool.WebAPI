@@ -10,20 +10,42 @@ namespace SmartSchool.WebAPI.Data.Builders
             // Configura a chave primária
             modelBuilder.Entity<Aluno>().HasKey(a => a.Id);
 
-            // Configura as propriedades com restrições adicionais
+            // Configura as propriedades
             modelBuilder.Entity<Aluno>().Property(a => a.Matricula).IsRequired();
             modelBuilder.Entity<Aluno>().Property(a => a.Cpf).HasMaxLength(11).IsRequired();
             modelBuilder.Entity<Aluno>().Property(a => a.Nome).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Aluno>().Property(a => a.Sobrenome).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Aluno>().Property(a => a.Telefone).HasMaxLength(15);
-            modelBuilder.Entity<Aluno>().Property(a => a.DataNascimento).IsRequired();
             modelBuilder.Entity<Aluno>().Property(a => a.Ativo).IsRequired();
 
-            // Relacionamento: Aluno -> AlunoDisciplina (um para muitos)
+            // Mapeamento de Data Nascimento, DataInicio e DataFim
+            modelBuilder.Entity<Aluno>()
+                .Property(a => a.DataNascimento)
+                .HasColumnType("date")
+                .IsRequired();
+            
+            modelBuilder.Entity<Aluno>()
+                .Property(a => a.DataInicio)
+                .HasColumnType("date")
+                .IsRequired();
+
+            modelBuilder.Entity<Aluno>()
+                .Property(a => a.DataFim)
+                .HasColumnType("date")
+                .IsRequired(false);
+
+            // Relacionamentos: Aluno -> AlunoDisciplina (um para muitos)
             modelBuilder.Entity<Aluno>()
                 .HasMany(a => a.AlunosDisciplinas)
                 .WithOne(ad => ad.Aluno)
                 .HasForeignKey(ad => ad.AlunoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relacionamentos: Aluno -> AlunoCurso (um para muitos)
+            modelBuilder.Entity<Aluno>()
+                .HasMany(a => a.AlunosCursos)
+                .WithOne(ac => ac.Aluno)
+                .HasForeignKey(ac => ac.AlunoId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Aqui você poderia adicionar inserções iniciais se necessário

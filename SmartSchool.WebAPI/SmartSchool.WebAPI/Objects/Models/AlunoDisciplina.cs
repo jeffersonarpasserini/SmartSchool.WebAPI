@@ -15,7 +15,7 @@ public class AlunoDisciplina
     [JsonIgnore] public Disciplina Disciplina { get; set; }
 
     [Column("datainicio")]
-    public DateTime DataInicio { get; set; } = DateTime.Now;
+    public DateTime DataInicio { get; set; }
     
     [Column("datafim")]
     public DateTime? DataFim { get; set; }
@@ -25,9 +25,11 @@ public class AlunoDisciplina
     
     public AlunoDisciplina(){ }
 
-    public AlunoDisciplina(int alunoId, int disciplinaId)
+    public AlunoDisciplina(int alunoId, int disciplinaId, DateTime dataInicio)
     {
         AlunoId = alunoId;
         DisciplinaId = disciplinaId;
+        DataInicio = dataInicio;
+        DataFim = null;
     }
 }

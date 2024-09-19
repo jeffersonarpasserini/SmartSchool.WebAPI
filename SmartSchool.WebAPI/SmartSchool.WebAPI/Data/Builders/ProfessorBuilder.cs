@@ -10,15 +10,24 @@ namespace SmartSchool.WebAPI.Data.Builders
             // Configura a chave primária
             modelBuilder.Entity<Professor>().HasKey(p => p.Id);
 
-            // Configura as propriedades com restrições adicionais
-            modelBuilder.Entity<Professor>().Property(p => p.Matricula).IsRequired();
-            modelBuilder.Entity<Professor>().Property(p => p.Cpf).HasMaxLength(11).IsRequired();
+            // Configura as propriedades
             modelBuilder.Entity<Professor>().Property(p => p.Nome).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Professor>().Property(p => p.Sobrenome).HasMaxLength(100).IsRequired();
-            modelBuilder.Entity<Professor>().Property(p => p.DataInicio).IsRequired();
-            modelBuilder.Entity<Professor>().Property(p => p.Ativo).IsRequired();
+            modelBuilder.Entity<Professor>().Property(p => p.Matricula).IsRequired();
+            modelBuilder.Entity<Professor>().Property(p => p.Cpf).HasMaxLength(11).IsRequired();
 
-            // Relacionamento: Professor -> Disciplinas (um para muitos)
+            // Mapeamento de DataInicio e DataFim
+            modelBuilder.Entity<Professor>()
+                .Property(p => p.DataInicio)
+                .HasColumnType("date")
+                .IsRequired();
+
+            modelBuilder.Entity<Professor>()
+                .Property(p => p.DataFim)
+                .HasColumnType("date")
+                .IsRequired(false);
+
+            // Relacionamento: Professor -> Disciplina (um para muitos)
             modelBuilder.Entity<Professor>()
                 .HasMany(p => p.Disciplinas)
                 .WithOne(d => d.Professor)

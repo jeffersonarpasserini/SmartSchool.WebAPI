@@ -10,7 +10,7 @@ namespace SmartSchool.WebAPI.Data.Builders
             // Configura a chave primária
             modelBuilder.Entity<Disciplina>().HasKey(d => d.Id);
 
-            // Configura as propriedades com restrições adicionais
+            // Configura as propriedades
             modelBuilder.Entity<Disciplina>().Property(d => d.Nome).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Disciplina>().Property(d => d.CargaHoraria).IsRequired();
 
@@ -45,11 +45,11 @@ namespace SmartSchool.WebAPI.Data.Builders
             // Adicionar dados iniciais (opcional)
             modelBuilder.Entity<Disciplina>()
                 .HasData(new List<Disciplina>{
-                    new Disciplina(1, "Matemática", 80,1, 1),
-                    new Disciplina(2, "Física", 80, 2, 2),
-                    new Disciplina(3, "Português", 80, 3, 3),
-                    new Disciplina(4, "Inglês", 80, 4, 4),
-                    new Disciplina(5, "Programação", 160, 4, 5)
+                    new Disciplina(1, "Matemática", 80,1, 1, null),
+                    new Disciplina(2, "Física", 80, 2, 2, 1),
+                    new Disciplina(3, "Português", 80, 3, 3, null),
+                    new Disciplina(4, "Inglês", 80, 4, 4, null),
+                    new Disciplina(5, "Programação", 160, 4, 5, 1)
                 });
         }
     }

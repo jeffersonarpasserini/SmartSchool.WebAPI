@@ -7,7 +7,7 @@ namespace SmartSchool.WebAPI.Data.Builders
     {
         public static void Build(ModelBuilder modelBuilder)
         {
-            // Configurando a chave composta AlunoId + CursoId
+            // Configura chave primária composta
             modelBuilder.Entity<AlunoCurso>()
                 .HasKey(ac => new { ac.AlunoId, ac.CursoId });
 
@@ -25,9 +25,16 @@ namespace SmartSchool.WebAPI.Data.Builders
                 .HasForeignKey(ac => ac.CursoId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Propriedades adicionais
-            modelBuilder.Entity<AlunoCurso>().Property(ac => ac.DataInicio).IsRequired();
-            modelBuilder.Entity<AlunoCurso>().Property(ac => ac.DataFim);
+            // Mapeamento de DataInicio como timestamp with time zone
+            modelBuilder.Entity<AlunoCurso>()
+                .Property(ac => ac.DataInicio)
+                .HasColumnType("date")
+                .IsRequired();
+
+            // Mapeamento de DataFim como timestamp with time zone
+            modelBuilder.Entity<AlunoCurso>()
+                .Property(ac => ac.DataFim)
+                .HasColumnType("date").IsRequired(false);
 
             // Dados iniciais
             modelBuilder.Entity<AlunoCurso>().HasData(

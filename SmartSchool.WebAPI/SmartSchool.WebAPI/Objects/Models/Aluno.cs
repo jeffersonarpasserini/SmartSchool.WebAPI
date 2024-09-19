@@ -21,15 +21,18 @@ public class Aluno
     [Column("datanascimento")]
     public DateTime DataNascimento { get; set; }
     [Column("datainicio")]
-    public DateTime DataInicio { get; set; } = DateTime.Now;
+    public DateTime DataInicio { get; set; }
     [Column("datafim")]
-    public DateTime? DataFim { get; set; } = null;
+    public DateTime? DataFim { get; set; }
     [Column("ativo")]
     public bool Ativo { get; set; } = true;
     public IEnumerable<AlunoDisciplina>? AlunosDisciplinas { get; set; }
     public IEnumerable<AlunoCurso>? AlunosCursos { get; set; }
 
-    public Aluno() { }
+    public Aluno()
+    {
+        
+    }
 
     public Aluno(int id, int matricula, string cpf, string nome, string sobrenome, string telefone, DateTime dataNascimento)
     {

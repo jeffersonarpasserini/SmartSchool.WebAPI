@@ -10,7 +10,7 @@ namespace SmartSchool.WebAPI.Data.Builders
             // Configura a chave primária
             modelBuilder.Entity<Curso>().HasKey(c => c.Id);
 
-            // Configura as propriedades com restrições adicionais
+            // Configura as propriedades
             modelBuilder.Entity<Curso>().Property(c => c.Nome).HasMaxLength(100).IsRequired();
 
             // Relacionamento: Curso -> Disciplinas (um para muitos)
@@ -18,6 +18,13 @@ namespace SmartSchool.WebAPI.Data.Builders
                 .HasMany(c => c.Disciplinas)
                 .WithOne(d => d.Curso)
                 .HasForeignKey(d => d.CursoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relacionamento: Curso -> AlunoCurso (um para muitos)
+            modelBuilder.Entity<Curso>()
+                .HasMany(c => c.AlunosCursos)
+                .WithOne(ac => ac.Curso)
+                .HasForeignKey(ac => ac.CursoId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Adicionar dados iniciais

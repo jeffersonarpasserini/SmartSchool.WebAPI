@@ -21,7 +21,7 @@ public class Disciplina
     public int? PrerequisitoId { get; set; }
     
     [JsonIgnore][ForeignKey("PrerequisitoId")]
-    public Disciplina Prerequisito { get; set; } = null;
+    public Disciplina? Prerequisito { get; set; }
     
     [Column("cursoid")]
     public int CursoId { get; set; }
@@ -40,12 +40,13 @@ public class Disciplina
     
     public Disciplina() { }
 
-    public Disciplina(int id, string nome, int cargaHoraria, int cursoId, int professorId)
+    public Disciplina(int id, string nome, int cargaHoraria, int cursoId, int professorId, int? preRequisito)
     {
         Id = id;
         Nome = nome;
         CargaHoraria = cargaHoraria;
         CursoId = cursoId;
         ProfessorId = professorId;
+        PrerequisitoId = preRequisito;
     }
 }
